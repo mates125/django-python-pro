@@ -1,0 +1,31 @@
+name: pipeline_django_pyproo
+on:
+   push:
+     branches: 
+        - '*'
+
+jobs:
+    build_deploy_and_test:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+            
+            - name: Set up Python 3.12
+              uses: actions/setup-python@v2
+              with:
+                python-version: '3.12'
+
+            - name: Install dependencies
+              run: |
+                python -m pip install --upgrade pip
+                pip install pipenv
+                pipenv install --dev
+            
+            - name: Tests and coverage report
+              run: |
+                pipenv run pytest --cov=pypro
+            
+            - name: Show coverage report
+              run: |
+                pipenv run codecov
