@@ -27,7 +27,9 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
-
+# ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv()) # 
+# para usar o config com o decouple, esses valores devem ser colocados como secrets no provedor, 
+# com a chave ALLOWED_HOSTS='django.python.pro.br, pythonprodjango.herokuapp.com'
 
 # Application definition
 
