@@ -40,9 +40,10 @@ jobs:
           cp contrib/env-sample .env
 
       - name: Test database connection
-        run: |
-          postgres -c "CREATE DATABASE testdb;" -U postgres
 
+        run: |
+          PGPASSWORD=postgres psql -h localhost -U postgres -d testdb -c "CREATE TABLE testdb (id SERIAL PRIMARY KEY, name VARCHAR(50));"
+                    
       - name: Tests and coverage report
         run: |
           pipenv run pytest --cov=pypro --cov-report=xml
