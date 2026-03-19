@@ -15,6 +15,6 @@ COPY Pipfile Pipfile.lock /code/
 RUN pipenv install --deploy --system
 COPY . /code
 
-EXPOSE 8000
+EXPOSE 8080
 
-CMD ["gunicorn","--bind",":8000","--workers","2","pypro.wsgi"]
+CMD ["gunicorn","--bind",":8080","--workers","2","pypro.wsgi"]
