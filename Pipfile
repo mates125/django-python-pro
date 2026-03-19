@@ -9,6 +9,7 @@ gunicorn = "*"
 pytest-django = "*"
 python-decouple = "*"
 flake8 = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.12"
