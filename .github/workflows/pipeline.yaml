@@ -9,6 +9,20 @@ jobs:
   build_deploy_and_test:
     runs-on: ubuntu-latest
 
+    services:
+      postegres:
+        image: postgres
+
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: testdb
+
+        ports:
+          - 5432:5432
+          
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -24,6 +38,10 @@ jobs:
           pip install pipenv
           pipenv install --dev
           cp contrib/env-sample .env
+
+      - name: Test database connection
+        run: |
+          postgres -c "CREATE DATABASE testdb;" -U postgres
 
       - name: Tests and coverage report
         run: |
